@@ -1,0 +1,17 @@
+vim.ResourcePool.ResourceUsage
+==============================
+inherits from [vmodl.DynamicData](docs/vmodl.DynamicData.md)
+
+
+Specifies the resource usage for either memory   or CPU. For CPU the unit is MHz, for memory the unit is bytes.   <p>   In the typical case, where a resourcepool is in a consistent state,   unreservedForVm will be equal to unreservedForPool. Hence, we   can simply say talk about unreserved resources.   <p>   If the reservation on the resource pool is not expandable, then   the following is true:   <pre>            reservation = reservationUsed + unreserved   </pre>   If the reservation on the resource pool is expandable, then   the following is true:   <pre>       reservation + parent.unreserved = reservationUsed + unreserved   </pre>
+
+| property | type | optional | priv | desc |
+|:---------|:-----|:---------|:-----|:-----|
+| reservationUsed | long | None | None | Total amount of resources that have been used to satisfy the   reservation requirements of all descendants of this   resource pool (includes both resource pools and virtual   machines). |
+| reservationUsedForVm | long | None | None | Total amount of resources that have been used to satisfy the reservation   requirements of running virtual machines in this resource pool or any of its   child resource pools. |
+| unreservedForPool | long | None | None | Total amount of resources available to satisfy a reservation   for a child resource pool. In the undercommitted state, this is   limited by the capacity at the root node. In the overcommitted case,   this could be higher since we do not perform the dynamic capacity   checks. |
+| unreservedForVm | long | None | None | Total amount of resources available to satisfy a reservation for   a child virtual machine. In general, this should be the same as   <a href="vim.ResourcePool.ResourceUsage.md#unreservedForPool">unreservedForPool</a>. However, in the overcommitted case, this   is limited by the remaining available resources at the root   node. |
+| overallUsage | long | None | None | Close to real-time resource usage of all running child virtual machines,   including virtual machines in child resource pools. |
+| maxUsage | long | None | None | Current upper-bound on usage. The upper-bound is based on the limit configured   on this resource pool, as well as limits configured on any parent resource   pool. |
+
+

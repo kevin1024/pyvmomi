@@ -1,0 +1,19 @@
+vim.vm.Summary
+==============
+inherits from [vmodl.DynamicData](docs/vmodl.DynamicData.md)
+
+
+The summary data object type encapsulates a typical set of virtual machine   information that is useful for list views and summary pages.   <p>   VirtualCenter can retrieve this information very efficiently,   even for large sets of virtual machines.
+
+| property | type | optional | priv | desc |
+|:---------|:-----|:---------|:-----|:-----|
+| vm | [vim.VirtualMachine](vim.VirtualMachine.md "vim.VirtualMachine") | true | None | Reference to the virtual machine managed object. |
+| runtime | [vim.vm.RuntimeInfo](vim.vm.RuntimeInfo.md "vim.vm.RuntimeInfo") | None | None | Runtime and state information of a running virtual machine.   Most of this information is also available when a virtual machine is powered off.   In that case, it contains information from the last run, if available. |
+| guest | [vim.vm.Summary.GuestSummary](vim.vm.Summary.GuestSummary.md "vim.vm.Summary.GuestSummary") | true | None | Guest operating system and VMware Tools information. See <a href="vim.VirtualMachine.md#guest">guest</a> for more information. |
+| config | [vim.vm.Summary.ConfigSummary](vim.vm.Summary.ConfigSummary.md "vim.vm.Summary.ConfigSummary") | None | None | Basic configuration information about the virtual machine. This information  is not available when the virtual machine is unavailable, for instance, when  it is being created or deleted. |
+| storage | [vim.vm.Summary.StorageSummary](vim.vm.Summary.StorageSummary.md "vim.vm.Summary.StorageSummary") | true | None | Storage information of the virtual machine. It can be explicitly refreshed   with the <a href="vim.VirtualMachine.md#refreshStorageInfo">RefreshStorageInfo</a> operation.    In releases after vSphere API 5.0, vSphere Servers might not   generate property collector update notifications for this property.   To obtain the latest value of the property, you can use   PropertyCollector methods RetrievePropertiesEx or WaitForUpdatesEx.   If you use the PropertyCollector.WaitForUpdatesEx method, specify   an empty string for the version parameter.    Since this property is on a DataObject, an update returned by WaitForUpdatesEx may   contain values for this property when some other property on the DataObject changes.   If this update is a result of a call to WaitForUpdatesEx with a non-empty   version parameter, the value for this property may not be current. |
+| quickStats | [vim.vm.Summary.QuickStats](vim.vm.Summary.QuickStats.md "vim.vm.Summary.QuickStats") | None | None | A set of statistics that are typically updated with near real-time regularity.   This data object type does not support notification, for scalability reasons.   Therefore, changes in QuickStats do not generate property collector updates. To   monitor statistics values, use the statistics and alarms modules instead. |
+| overallStatus | [vim.ManagedEntity.Status](vim.ManagedEntity.Status.md "vim.ManagedEntity.Status") | None | None | Overall alarm status on this node.    In releases after vSphere API 5.0, vSphere Servers might not   generate property collector update notifications for this property.   To obtain the latest value of the property, you can use   PropertyCollector methods RetrievePropertiesEx or WaitForUpdatesEx.   If you use the PropertyCollector.WaitForUpdatesEx method, specify   an empty string for the version parameter.    Since this property is on a DataObject, an update returned by WaitForUpdatesEx may   contain values for this property when some other property on the DataObject changes.   If this update is a result of a call to WaitForUpdatesEx with a non-empty   version parameter, the value for this property may not be current. |
+| customValue | [vim.CustomFieldsManager.Value](vim.CustomFieldsManager.Value.md "vim.CustomFieldsManager.Value") | true | None | Custom field values. |
+
+

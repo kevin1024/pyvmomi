@@ -1,0 +1,15 @@
+vim.host.DatastoreBrowser.FileInfo.Details
+==========================================
+inherits from [vmodl.DynamicData](docs/vmodl.DynamicData.md)
+
+
+The FileInfo.Details data object type is a set of flags for a search request.   This search request specifies which details to return for each matching file.   This data object type is here to ensure that there is one flag corresponding to   each FileInfo property other than the path name, which a search always returns.
+
+| property | type | optional | priv | desc |
+|:---------|:-----|:---------|:-----|:-----|
+| fileType | bool | None | None | The flag to indicate whether or not the files that match this query   specification are returned along with file type information. This field must   be set to return specific details about the file type. |
+| fileSize | bool | None | None | The flag to indicate whether or not the size of the file is returned. |
+| modification | bool | None | None | The flag to indicate whether or not to return the date and time the file was   last modified. |
+| fileOwner | bool | None | None | The flag to indicate whether or not to return the file owner. |
+
+

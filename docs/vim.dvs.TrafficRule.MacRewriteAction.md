@@ -1,0 +1,13 @@
+vim.dvs.TrafficRule.MacRewriteAction
+====================================
+inherits from [vim.dvs.TrafficRule.Action](docs/vim.dvs.TrafficRule.Action.md)
+as of [vSphere API 5.5](vim.version.md#vim.version.version9)
+
+
+This class defines network rule action to MAC Rewrite.
+
+| property | type | optional | priv | desc |
+|:---------|:-----|:---------|:-----|:-----|
+| rewriteMac | string | None | None | Rewrite Destination MAC with this MAC address. |
+
+
