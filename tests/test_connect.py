@@ -13,14 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from tests import fixtures_path
 import logging
 import unittest
 import vcr
+import os
 
 from pyVim import connect
 from pyVmomi import vim
 
+# Fully qualified path to the fixtures directory underneath this module
+def tests_resource_path(local_path=''):
+    this_file = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(this_file, local_path)
+
+fixtures_path = tests_resource_path('fixtures')
 
 class ConnectionTests(unittest.TestCase):
 

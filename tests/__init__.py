@@ -12,12 +12,4 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
-
-
-def tests_resource_path(local_path=''):
-    this_file = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(this_file, local_path)
-
-# Fully qualified path to the fixtures directory underneath this module
-fixtures_path = tests_resource_path('fixtures')
+from . import test_connect # need to import submodules here so the tests can be discovered
