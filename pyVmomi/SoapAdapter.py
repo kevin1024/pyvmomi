@@ -22,7 +22,7 @@ import os
 import socket
 import subprocess
 import time
-import urlparse
+from six.moves.urllib.parse import urlparse
 from datetime import datetime
 from xml.parsers.expat import ParserCreate
 # We have our own escape functionality.
