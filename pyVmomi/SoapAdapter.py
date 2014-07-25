@@ -21,7 +21,6 @@ import sys
 import os
 import socket
 import subprocess
-import thread
 import time
 import urlparse
 from datetime import datetime
@@ -1163,7 +1162,7 @@ class SoapStubAdapter(SoapStubAdapterBase):
       self.poolSize = poolSize
       self.pool = []
       self.connectionPoolTimeout = connectionPoolTimeout
-      self.lock = thread.allocate_lock()
+      self.lock = threading.Lock()
       self.schemeArgs = {}
       if certKeyFile:
          self.schemeArgs['key_file'] = certKeyFile
