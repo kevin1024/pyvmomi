@@ -17,6 +17,7 @@
 from __future__ import absolute_import
 from __future__ import with_statement # 2.5 only
 
+import sys
 from six import text_type
 from six import u
 
@@ -24,6 +25,11 @@ from datetime import datetime
 import pyVmomi.Iso8601
 import base64
 import threading
+
+if sys.version > '3':
+    # python3 removed long, it's the same as int
+    long = int
+
 NoneType = type(None)
 try:
    from pyVmomi.pyVmomiSettings import allowGetSet
@@ -352,7 +358,7 @@ class ManagedObject(object):
       args = list(posargs) + [None] * (len(info.params) - len(posargs))
       if len(kwargs) > 0:
          paramNames = [param.name for param in info.params]
-         for (k, v) in kwargs.items():
+         for (k, v) in list(kwargs.items()):
             try:
                idx = paramNames.index(k)
             except ValueError:
@@ -1117,14 +1123,14 @@ def GetServiceVersions(namespace):
    by compatibility (i.e. any version in the list that is compatible with some version
    v in the list will preceed v)
    """
-   versions = dict((v, True) for (v, n) in serviceNsMap.iteritems() if n == namespace)
+   versions = dict((v, True) for (v, n) in serviceNsMap.items() if n == namespace)
    mappings = {}
    for v in versions.iterkeys():
       mappings[v] = set(parent for parent in parentMap[v].iterkeys()
                         if parent != v and versions.has_key(parent))
    res = []
    while True:
-      el = [ k for (k, v) in mappings.iteritems() if len(v) == 0 ]
+      el = [ k for (k, v) in mappings.items() if len(v) == 0 ]
       if len(el) == 0:
          return res
       el.sort()
@@ -1222,7 +1228,7 @@ def GetCompatibleType(type, version):
 
 ## Invert an injective mapping
 def InverseMap(map):
-   return dict([ (v, k) for (k, v) in map.iteritems() ])
+   return dict([ (v, k) for (k, v) in map.items() ])
 
 types = Object()
 nsMap = {}
@@ -1267,7 +1273,7 @@ _wsdlTypeMap = {
 }
 _wsdlNameMap = InverseMap(_wsdlTypeMap)
 
-for ((ns, name), typ) in _wsdlTypeMap.items():
+for ((ns, name), typ) in list(_wsdlTypeMap.items()):
    if typ is not NoneType:
       setattr(types, typ.__name__, typ)
       _wsdlTypeMapNSs.add(ns)
@@ -1326,7 +1332,7 @@ vmodlTypes = {
 vmodlNames = {}
 
 ## Add array type into special names
-for name, typ in vmodlTypes.copy().iteritems():
+for name, typ in vmodlTypes.copy().items():
    if typ is not NoneType:
       try:
          arrayType = typ.Array
@@ -1458,7 +1464,7 @@ class StringDict(dict):
 
    # Same as dict setdefault, except this will call through our __setitem__
    def update(self, *args, **kwargs):
-      for k, v in dict(*args, **kwargs).iteritems():
+      for k, v in dict(*args, **kwargs).items():
          self[k] = v
 
    # Same as dict setdefault, except this will call through our __setitem__
